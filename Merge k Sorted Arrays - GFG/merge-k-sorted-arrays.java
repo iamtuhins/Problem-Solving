@@ -37,23 +37,26 @@ class Solution
     public static ArrayList<Integer> mergeKArrays(int[][] arr,int K) 
     {
         // Write your code here.
-        int n=K;
+        if(arr.length<1){
+            return new ArrayList<>();
+        }
         PriorityQueue<Pair>pq=new PriorityQueue<>();
-        for(int i=0;i<n;i++){
+        for(int i=0;i<K;i++){
             Pair p=new Pair(i,0,arr[i][0]);
             pq.add(p);
         }
         ArrayList<Integer>sol=new ArrayList<>();
-        while(pq.size()>=1){
+        while(!pq.isEmpty()){
             Pair p=pq.poll();
-            sol.add(p.val);
             p.data_id++;
-            if(p.data_id<n){
+            sol.add(p.val);
+            if(p.data_id<K){
                 p.val=arr[p.list_id][p.data_id];
                 pq.add(p);
             }
         }
         return sol;
+        
         
     }
 }
@@ -61,13 +64,13 @@ class Pair implements Comparable<Pair>{
     int list_id;
     int data_id;
     int val;
-    Pair(int li,int di,int val){
-        this.list_id=li;
-        this.data_id=di;
+    Pair(int list_id,int data_id,int val){
+        this.list_id=list_id;
+        this.data_id=data_id;
         this.val=val;
     }
-    public int compareTo(Pair obj){
-        return this.val-obj.val;
+    public int compareTo(Pair p){
+        return this.val-p.val;
     }
     
 }
