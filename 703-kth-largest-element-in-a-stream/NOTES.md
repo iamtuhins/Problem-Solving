@@ -1,0 +1,2 @@
+1. Take the elements of array into  a list and k into a diffrent global variable.
+2. every time an new element will come add it to the list and sort it and return list.size()-k elements as the solution.
