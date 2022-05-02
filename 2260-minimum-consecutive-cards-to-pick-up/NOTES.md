@@ -1,0 +1,2 @@
+1. Put all the elements on map with their index numberand check before putting if it is already on the map?
+2. If it is already on the map then get the index number and minus it from the current index and add 1(i-map.get(cards[i])+1)and store it in solution also each time check it is minimize.
