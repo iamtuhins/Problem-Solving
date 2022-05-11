@@ -5,27 +5,26 @@ class Solution {
         int min=Integer.MAX_VALUE;
         int max=Integer.MIN_VALUE;
         for(int i=0;i<n;i++){
-            int elem=nums.get(i).get(0);
-            min=Math.min(min,elem);
-            max=Math.max(max,elem);
-            Pair p=new Pair(i,0,elem);
+            int num=nums.get(i).get(0);
+            Pair p=new Pair(i,0,num);
             pq.add(p);
+            min=Math.min(num,min);
+            max=Math.max(num,max);
         }
-        
         int start=min;
-        int ends=max;
+        int end=max;
         while(!pq.isEmpty()){
             Pair p=pq.poll();
             min=p.val;
-            if(max-min<ends-start){
-                ends=max;
+            if(end-start>max-min){
                 start=min;
+                end=max;
             }
-            if(p.data_id+1<nums.get(p.list_id).size()){
-                int tm=nums.get(p.list_id).get(p.data_id+1);
+            if(nums.get(p.li).size()>p.di+1){
+                int tm=nums.get(p.li).get(p.di+1);
                 max=Math.max(max,tm);
                 p.val=tm;
-                p.data_id=p.data_id+1;
+                p.di=p.di+1;
                 pq.add(p);
             }else{
                 break;
@@ -33,20 +32,23 @@ class Solution {
         }
         int sol[]=new int[2];
         sol[0]=start;
-        sol[1]=ends;
+        sol[1]=end;
         return sol;
+        
+        
     }
 }
 class Pair implements Comparable<Pair>{
-    int list_id;
-    int data_id;
+    int li;
+    int di;
     int val;
-    Pair(int list,int data,int val){
-        this.list_id=list;
-        this.data_id=data;
+    Pair(int li,int di,int val){
+        this.li=li;
+        this.di=di;
         this.val=val;
     }
     public int compareTo(Pair ob){
         return this.val-ob.val;
     }
+    
 }
