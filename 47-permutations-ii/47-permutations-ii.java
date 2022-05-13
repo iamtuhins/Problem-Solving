@@ -1,6 +1,7 @@
 class Solution {
     public List<List<Integer>> permuteUnique(int[] nums) {
         int n=nums.length;
+        //map will hold all the numbers occurances firstly
         Map<Integer,Integer>map=new HashMap<>();
         for(int i=0;i<n;i++){
             map.put(nums[i],map.getOrDefault(nums[i],0)+1);
@@ -18,6 +19,7 @@ class Solution {
             return;
         }
         for(int i:map.keySet()){
+            //will check the count of number if greater than 0 than only will add
             if(map.get(i)>0){
                 out.add(i);
                 map.put(i,map.get(i)-1);
