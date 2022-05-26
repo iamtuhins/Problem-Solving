@@ -1,34 +1,34 @@
 class Solution {
     public int coinChange(int[] coins, int amount) {
         int n=coins.length;
-        int dp[][]=new int[n+1][amount+1];
-        int sol=fn(dp,n,amount,coins);
+        int arr[][]=new int[n+1][amount+1];
+        int sol=fn(arr,coins,n+1,amount+1);
         if(sol>=Integer.MAX_VALUE-1){
             return -1;
         }
         return sol;
     }
-    int fn(int dp[][],int n,int m,int arr[]){
-        int num=Integer.MAX_VALUE-1;
-        for(int i=0;i<n+1;i++){
-            for(int j=0;j<m+1;j++){
+    int fn(int arr[][],int coins[],int n,int m){
+        int temp=Integer.MAX_VALUE-1;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
                 if(i==0){
-                    dp[i][j]=num;
+                    arr[i][j]=temp;
                 }
                 if(j==0){
-                    dp[i][j]=0;
+                    arr[i][j]=0;
                 }
             }
         }
-        for(int i=1;i<n+1;i++){
-            for(int j=1;j<m+1;j++){
-                if(arr[i-1]<=j){
-                    dp[i][j]=Math.min(1+dp[i][j-arr[i-1]],dp[i-1][j]);
+        for(int i=1;i<n;i++){
+            for(int j=1;j<m;j++){
+                if(coins[i-1]<=j){
+                    arr[i][j]=Math.min(1+arr[i][j-coins[i-1]],arr[i-1][j]);
                 }else{
-                    dp[i][j]=dp[i-1][j];
+                    arr[i][j]=arr[i-1][j];
                 }
             }
         }
-        return dp[n][m];
+        return arr[n-1][m-1];
     }
 }
