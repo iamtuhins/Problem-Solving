@@ -8,14 +8,12 @@ class Solution {
             String t1=list1[i];
             for(int j=0;j<m;j++){
                 String t2=list2[j];
-                if(t1.equals(t2) && size>(i+j)){
-                    if(temp.size()>=1){
+                if(t1.equals(t2) && size>=(i+j)){
+                    if(temp.size()>=1 && size>(i+j)){
                         temp.remove(temp.size()-1);
                     }
                     temp.add(list1[i]);
                     size=i+j;
-                }else if(t1.equals(t2) && size==(i+j)){
-                    temp.add(list1[i]);
                 }
             }
         }
