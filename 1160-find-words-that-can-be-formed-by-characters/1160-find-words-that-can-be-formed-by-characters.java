@@ -8,23 +8,22 @@ class Solution {
             }
         }
         return sol;
-        
     }
-    boolean fn(String st1,String st2){
-        int temp[]=new int[26];
-        int n=st1.length();
-        int m=st2.length();
-        for(int i=0;i<n;i++){
-            temp[st1.charAt(i)-'a']++;
-        }
-        for(int i=0;i<m;i++){
-            temp[st2.charAt(i)-'a']--;
-        }
-        for(int i=0;i<temp.length;i++){
-            if(temp[i]<0){
-                return false;
+    boolean fn(String t1,String t2){
+            int temp[]=new int[26];
+            int n=t1.length();
+            int m=t2.length();
+            for(int i=0;i<n;i++){
+                temp[t1.charAt(i)-'a']++;
             }
+            for(int i=0;i<m;i++){
+                temp[t2.charAt(i)-'a']--;
+            }
+            for(int i=0;i<temp.length;i++){
+                if(temp[i]<0){
+                    return false;
+                }
+            }
+            return true;
         }
-        return true;
-    }
 }
