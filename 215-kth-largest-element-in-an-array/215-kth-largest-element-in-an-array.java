@@ -6,12 +6,12 @@ class Solution {
             pq.add(nums[i]);
         }
         for(int i=k;i<n;i++){
-            if(pq.peek()<nums[i]){
+            if(nums[i]>pq.peek()){
                 pq.poll();
                 pq.add(nums[i]);
             }
         }
-        return pq.peek();
-        
+        int sol=pq.peek();
+        return sol;
     }
 }
