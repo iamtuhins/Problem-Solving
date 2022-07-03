@@ -38,18 +38,18 @@ class Solution {
         // Code here
         ArrayList<Integer>sol=new ArrayList<>();
         int vist[]=new int[V];
-        for(int i=0;i<vist.length;i++){
+        for(int i=0;i<V;i++){
             if(vist[0]==0){
                 Queue<Integer>q=new LinkedList<>();
-                q.add(0);
-                vist[0]=1;
+                q.add(i);
+                vist[i]=1;
                 while(!q.isEmpty()){
-                    Integer node=q.remove();
+                    int node=q.remove();
                     sol.add(node);
-                    for(int n:adj.get(node)){
+                    for(int n: adj.get(node)){
                         if(vist[n]==0){
-                            vist[n]=1;
                             q.add(n);
+                            vist[n]=1;
                         }
                     }
                 }
