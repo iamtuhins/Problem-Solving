@@ -41,13 +41,31 @@ class Solution {
         for(int i=0;i<V;i++){
             if(vist[i]==0){
                 map.put(i,-1);
-                sol=dfs(adj,vist,map,i);
+                Queue<Integer>q=new LinkedList<>();
+                q.add(i);
+                vist[i]=1;
+                sol=bfs(adj,vist,map,q);
                 if(sol==true){
                     return true;
                 }
             }
         }
         return sol;
+    }
+    boolean bfs(ArrayList<ArrayList<Integer>>adj,int vist[],Map<Integer,Integer>map,Queue<Integer>q){
+        while(!q.isEmpty()){
+            int node=q.remove();
+            for(int m:adj.get(node)){
+                if(vist[m]==1 && map.get(node)!=m){
+                    return true;
+                }else if(vist[m]==0){
+                    vist[m]=1;
+                    q.add(m);
+                    map.put(m,node);
+                }
+            }
+        }
+        return false;
     }
     boolean dfs(ArrayList<ArrayList<Integer>>adj,int []vist,Map<Integer,Integer>map,int node){
         vist[node]=1;
