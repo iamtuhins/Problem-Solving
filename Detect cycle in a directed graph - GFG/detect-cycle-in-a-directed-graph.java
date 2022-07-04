@@ -34,37 +34,33 @@ class Solution {
     // Function to detect cycle in a directed graph.
     public boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adj) {
         // code here
-        int n=adj.size();
         int vist[]=new int[V];
-        int DfsVist[]=new int[V];
+        int now[]=new int[V];
         for(int i=0;i<V;i++){
             if(vist[i]==0){
-                boolean sol;
-                sol=detectDfs(i,vist,adj,DfsVist);
-                if(sol){
+                boolean sol=false;
+                sol=dfs(adj,vist,now,i);
+                if(sol==true){
                     return true;
                 }
             }
         }
         return false;
     }
-    boolean detectDfs(int node,int vist[],
-    ArrayList<ArrayList<Integer>>adj,int DfsVist[]){
-     vist[node]=1;
-     DfsVist[node]=1;
-     for(int n:adj.get(node)){
-         if(vist[n]==0){
-             boolean sol;
-             sol=detectDfs(n,vist,adj,DfsVist);
-             if(sol){
-                 return true;
-             }
-         }else if(vist[n]==1 && DfsVist[n]==1){
-             return true;
-         }
-     }
-     DfsVist[node]=0;
-     return false;
-        
+    boolean dfs(ArrayList<ArrayList<Integer>>adj,int vist[],int []now,int node){
+        vist[node]=1;
+        now[node]=1;
+        for(int n: adj.get(node)){
+            if(vist[n]==1 && now[n]==1){
+                return true;
+            }else if(vist[n]==0){
+                boolean temp=dfs(adj,vist,now,n);
+                if(temp){
+                    return true;
+                }
+            }
+        }
+        now[node]=0;
+        return false;
     }
 }
