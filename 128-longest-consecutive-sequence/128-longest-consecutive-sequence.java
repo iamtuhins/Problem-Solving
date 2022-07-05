@@ -10,8 +10,8 @@ class Solution {
                 int currentNum=m;
                 int currentSeq=1;
                 while(set.contains(currentNum+1)){
-                    currentSeq=currentSeq+1;
-                    currentNum++;
+                    currentSeq++;
+                    currentNum=currentNum+1;
                 }
                 longSeq=Math.max(currentSeq,longSeq);
             }
