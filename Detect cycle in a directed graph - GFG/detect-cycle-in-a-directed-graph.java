@@ -35,32 +35,33 @@ class Solution {
     public boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adj) {
         // code here
         int vist[]=new int[V];
-        int now[]=new int[V];
+        int vistMn[]=new int[V];
         for(int i=0;i<V;i++){
             if(vist[i]==0){
-                boolean sol=false;
-                sol=dfs(adj,vist,now,i);
-                if(sol==true){
+                boolean temp=false;
+                temp=fn(i,vist,adj,vistMn);
+                if(temp){
                     return true;
                 }
             }
         }
         return false;
     }
-    boolean dfs(ArrayList<ArrayList<Integer>>adj,int vist[],int []now,int node){
-        vist[node]=1;
-        now[node]=1;
-        for(int n: adj.get(node)){
-            if(vist[n]==1 && now[n]==1){
-                return true;
-            }else if(vist[n]==0){
-                boolean temp=dfs(adj,vist,now,n);
+    boolean fn(int n,int []vist,ArrayList<ArrayList<Integer>>adj,int []vistMn){
+        vist[n]=1;
+        vistMn[n]=1;
+        for(int node: adj.get(n)){
+            if(vist[node]==0){
+                boolean temp=false;
+                temp=fn(node,vist,adj,vistMn);
                 if(temp){
                     return true;
                 }
+            }else if(vist[node]==1 && vistMn[node]==1){
+                return true;
             }
         }
-        now[node]=0;
+        vistMn[n]=0;
         return false;
     }
 }
