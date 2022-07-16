@@ -6,23 +6,23 @@ class Solution {
         int sol=0;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(vist[i][j]==false && grid[i][j]=='1'){
-                    fn(grid,vist,i,j);
-                    sol=sol+1;
+                if(grid[i][j]=='1' && vist[i][j]==false){
+                    fn(grid,i,j,vist);
+                    sol++;
                 }
             }
         }
         return sol;
+        
     }
-    void fn(char grid[][],boolean vist[][],int n,int m){
-        if(n<0|| n>=grid.length|| m<0|| m>=grid[0].length|| vist[n][m]==true|| grid[n][m]=='0'){
+    void fn(char grid[][],int i,int j,boolean vist[][]){
+        if(i<0 ||j<0 ||i>=grid.length ||j>=grid[0].length ||grid[i][j]=='0' ||vist[i][j]==true){
             return;
         }
-        vist[n][m]=true;
-        fn(grid,vist,n+1,m);
-        fn(grid,vist,n,m+1);
-        fn(grid,vist,n-1,m);
-        fn(grid,vist,n,m-1);
+        vist[i][j]=true;
+        fn(grid,i+1,j,vist);
+        fn(grid,i-1,j,vist);
+        fn(grid,i,j+1,vist);
+        fn(grid,i,j-1,vist);
     }
-    
 }
