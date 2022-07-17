@@ -5,7 +5,6 @@ class Solution {
         int sol=0;
         for(int i=0;i<n;i++){
             int num1=fn(nums[i]);
-            System.out.println(num1);
             if(!mp.containsKey(num1)){
                 mp.put(num1,nums[i]);
             }else{
