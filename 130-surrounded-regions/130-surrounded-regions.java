@@ -12,18 +12,18 @@ class Solution {
         }
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(board[i][j]=='T'){
-                    board[i][j]='O';
-                }else if(board[i][j]=='O'){
+                if(board[i][j]=='O'){
                     board[i][j]='X';
+                }else if(board[i][j]=='T'){
+                    board[i][j]='O';
                 }
             }
         }
         
     }
     void fn(char [][]board,int i,int j){
-        if(i<0|| i>=board.length||  j<0|| j>=board[0].length
-          || board[i][j]=='T' || board[i][j]=='X'){
+        if(i<0 || j<0 ||i>=board.length || j>=board[0].length 
+           || board[i][j]=='T' || board[i][j]=='X'){
             return;
         }
         board[i][j]='T';
@@ -32,5 +32,4 @@ class Solution {
         fn(board,i-1,j);
         fn(board,i,j-1);
     }
-    
 }
