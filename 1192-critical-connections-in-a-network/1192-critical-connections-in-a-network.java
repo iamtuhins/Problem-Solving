@@ -17,10 +17,6 @@ class Solution {
             adj.get(v).add(u);
         }
         for(int i=0;i<n;i++){
-            lowTime[i]=-1;
-            rlTime[i]=-1;
-        }
-        for(int i=0;i<n;i++){
             if(vist[i]==false){
                 fn(-1,vist,lowTime,rlTime,time,i,adj,sol);
             }
