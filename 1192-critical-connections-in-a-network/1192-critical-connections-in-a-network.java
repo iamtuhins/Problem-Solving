@@ -1,57 +1,53 @@
 class Solution {
     public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {
-        int low[]=new int[n];
-        int decs[]=new int[n];
-        int parents=-1;
+        int lowTime[]=new int[n];
+        boolean vist[]=new boolean[n];
+        int time[]=new int[1];
+        int rlTime[]=new int[n];
         List<List<Integer>>sol=new ArrayList<>();
-        int times[]=new int[1];
-        boolean vists[]=new boolean[n];
-        List<List<Integer>>adjs=new ArrayList<>();
+        int m=connections.size();
+        List<List<Integer>>adj=new ArrayList<>();
         for(int i=0;i<n;i++){
-            adjs.add(new ArrayList<Integer>());
+            adj.add(new ArrayList<Integer>());
         }
-        for(int i=0;i<connections.size();i++){
+        for(int i=0;i<m;i++){
             int u=connections.get(i).get(0);
             int v=connections.get(i).get(1);
-            adjs.get(u).add(v);
-            adjs.get(v).add(u);
+            adj.get(u).add(v);
+            adj.get(v).add(u);
         }
         for(int i=0;i<n;i++){
-            low[i]=-1;
-            decs[i]=-1;
-            
+            lowTime[i]=-1;
+            rlTime[i]=-1;
         }
         for(int i=0;i<n;i++){
-            if(vists[i]==false){
-                dfs(i,decs,low,vists,sol,adjs,parents,times);
+            if(vist[i]==false){
+                fn(-1,vist,lowTime,rlTime,time,i,adj,sol);
             }
         }
         return sol;
         
     }
-    void dfs(int node,int desc[],int low[],
-             boolean []vists,List<List<Integer>>sol,List<List<Integer>>conn,int pt,int []times){
-        vists[node]=true;
-        low[node]=times[0];
-        desc[node]=times[0];
-        times[0]++;
-        for(int n: conn.get(node)){
-            if(n==pt){
+    void fn(int pnt,boolean vist[],int []lowTime,int[]rlTime,int[] time,int node,List<List<Integer>>con,List<List<Integer>>sol){
+        vist[node]=true;
+        lowTime[node]=time[0];
+        rlTime[node]=time[0]++;
+        for(int n: con.get(node)){
+            if(n==pnt){
                 continue;
             }
-            if(vists[n]==false){
-                dfs(n,desc,low,vists,sol,conn,node,times);
-                low[node]=Math.min(low[node],low[n]);
-                if(low[n]>desc[node]){
+            if(vist[n]==false){
+                fn(node,vist,lowTime,rlTime,time,n,con,sol);
+                lowTime[node]=Math.min(lowTime[n],lowTime[node]);
+                if(lowTime[n]>rlTime[node]){
                     List<Integer>temp=new ArrayList<>();
                     temp.add(node);
                     temp.add(n);
                     sol.add(new ArrayList<Integer>(temp));
                 }
             }else{
-                low[node]=Math.min(low[node],desc[n]);
+                lowTime[node]=Math.min(lowTime[node],rlTime[n]);
             }
         }
-        
     }
 }
