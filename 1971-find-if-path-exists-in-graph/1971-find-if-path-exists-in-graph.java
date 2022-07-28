@@ -12,8 +12,24 @@ class Solution {
             adj.get(v).add(u);
         }
         int vist[]=new int[n];
-        sol=fn(vist,source,adj,destination);
-        return sol;
+        Queue<Integer>q=new LinkedList<>();
+        q.add(source);
+        while(!q.isEmpty()){
+            int temp=q.remove();
+            vist[temp]=1;
+            if(temp==destination){
+                return true;
+            }
+            for(int nums: adj.get(temp)){
+                if(nums==destination){
+                    return true;
+                }
+                if(vist[nums]==0){
+                    q.add(nums);
+                }
+            }
+        }
+        return false;
         
         
     }
