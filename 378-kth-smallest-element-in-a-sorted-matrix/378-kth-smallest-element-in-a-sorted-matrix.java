@@ -1,23 +1,22 @@
 class Solution {
     public int kthSmallest(int[][] matrix, int k) {
         int n=matrix.length;
-        List<Integer>nums=new ArrayList<>();
         PriorityQueue<Pair>pq=new PriorityQueue<>();
         for(int i=0;i<n;i++){
             pq.add(new Pair(matrix[i][0],i,0));
         }
+        List<Integer>temp=new ArrayList<>();
         while(!pq.isEmpty()){
             Pair p=pq.poll();
-            nums.add(p.num);
-            if(n>p.eNum+1){
-                int id=p.eNum+1;
-                Pair temp=new Pair(matrix[p.lNum][id],p.lNum,id);
-                pq.add(temp);
+            temp.add(p.num);
+            if(n>p.dtNum+1){
+                Pair nm=new Pair(matrix[p.lNum][p.dtNum+1],p.lNum,p.dtNum+1);
+                pq.add(nm);
             }
         }
-        int sol=nums.get(k-1);
+        System.out.println(temp);
+        int sol=temp.get(k-1);
         return sol;
-        
         
         
     }
@@ -25,14 +24,14 @@ class Solution {
 class Pair implements Comparable<Pair>{
     int num;
     int lNum;
-    int eNum;
-    Pair(int n,int m,int p){
+    int dtNum;
+    Pair(int n,int m,int j){
         this.num=n;
         this.lNum=m;
-        this.eNum=p;
-        
+        this.dtNum=j;
     }
-    public int compareTo(Pair ob){
-        return this.num-ob.num;
+    public int compareTo(Pair obj){
+        return this.num-obj.num;
     }
+    
 }
