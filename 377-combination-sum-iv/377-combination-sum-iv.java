@@ -2,14 +2,14 @@ class Solution {
     public int combinationSum4(int[] nums, int target) {
         int n=nums.length;
         int dp[]=new int[target+1];
-        int temp=0;
-        Arrays.fill(dp,-1);
-        fn(nums,dp,target);
-        return dp[target];
-        
+        for(int i=0;i<=target;i++){
+            dp[i]=-1;
+        }
+        int sol=fn(nums,dp,target);
+        return sol;
         
     }
-    int fn(int nums[],int dp[],int target){
+    int fn(int []nums,int []dp,int target){
         if(target<0){
             return 0;
         }
