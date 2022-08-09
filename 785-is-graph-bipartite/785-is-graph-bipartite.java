@@ -2,7 +2,8 @@ class Solution {
     public boolean isBipartite(int[][] graph) {
         int n=graph.length;
         int colorGraph[]=new int[n];
-        Arrays.fill(colorGraph,-1);
+        for(int i=0;i<n;i++)
+            colorGraph[i]=-1;
         for(int i=0;i<n;i++){
             if(colorGraph[i]==-1){
                 colorGraph[i]=1;
@@ -13,16 +14,17 @@ class Solution {
             }
         }
         return true;
+        
     }
-    boolean fn(int graph[][],int id,int []arr){
-        for(int m: graph[id]){
-            if(arr[m]==-1){
-                arr[m]=1-arr[id];
-                boolean tm=fn(graph,m,arr);
-                if(tm==false){
+    boolean fn(int graph[][],int id,int arr[]){
+        for(int num: graph[id]){
+            if(arr[num]==-1){
+                arr[num]=1-arr[id];
+                boolean temp=fn(graph,num,arr);
+                if(temp==false){
                     return false;
                 }
-            }else if(arr[m]==arr[id]){
+            }else if(arr[num]==arr[id]){
                 return false;
             }
         }
