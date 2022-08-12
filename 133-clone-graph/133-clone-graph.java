@@ -20,27 +20,24 @@ class Node {
 
 class Solution {
     public Node cloneGraph(Node node) {
-        if(node==null){
-            return node;
-        }
         Map<Node,Node>map=new HashMap<>();
         Node sol=fn(map,node);
         return sol;
+        
     }
-    Node fn(Map<Node,Node>mp,Node node){
-        if(mp.containsKey(node)){
-            return mp.get(node);
-        }
+    Node fn(Map<Node,Node>map,Node node){
         if(node==null){
-            Node nm=node;
-            return nm;
+            Node nd=node;
+            return nd;
         }
-        Node temp=new Node(node.val);
-        mp.put(node,temp);
-        for(Node n: node.neighbors){
-            temp.neighbors.add(fn(mp,n));
-            
+        if(map.containsKey(node)){
+            return map.get(node);
         }
-        return temp;
+        Node nd=new Node(node.val);
+        map.put(node,nd);
+        for(Node tm: node.neighbors){
+            nd.neighbors.add(fn(map,tm));
+        }
+        return nd;
     }
 }
