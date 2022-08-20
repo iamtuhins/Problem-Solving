@@ -2,50 +2,51 @@ class Solution {
     public int numIslands(char[][] grid) {
         int n=grid.length;
         int m=grid[0].length;
+        Queue<Pair>q=new LinkedList<>();
         int sol=0;
+        boolean vist[][]=new boolean[n][m];
+        int dirt[][]={{0,1},{1,0},{0,-1},{-1,0}};
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(grid[i][j]=='1'){
-                    fn(grid,i,j);
+                if(grid[i][j]=='1' && vist[i][j]==false){
+                    bfs(i,j,grid,vist,q,dirt);
                     sol++;
                 }
             }
         }
         return sol;
         
-        
     }
-    void fn(char grid[][],int i,int j){
-        Queue<Pair>q=new LinkedList<>();
-        q.add(new Pair(i,j));
+    void bfs(int idn,int idm,char [][]grid,boolean vist[][],Queue<Pair>q,int [][]dirt){
+        Pair p=new Pair(idn,idm);
+        vist[idn][idm]=true;
+        q.add(p);
         while(!q.isEmpty()){
             int sz=q.size();
-            for(int m=0;m<sz;m++){
-                Pair p=q.remove();
-                int num1=p.num1;
-                int num2=p.num2;
-                if(isVald(grid,num1,num2)){
-                    grid[num1][num2]='0';
-                q.add(new Pair(num1+1,num2));
-                q.add(new Pair(num1,num2+1));
-                q.add(new Pair(num1-1,num2));
-                q.add(new Pair(num1,num2-1));
+            for(int i=0;i<sz;i++){
+                Pair temp=q.remove();
+                int nowRow=temp.nRow;
+                int nowColm=temp.nColm;
+                for(int j=0;j<4;j++){
+                    int putRow=nowRow+dirt[j][0];
+                    int putColm=nowColm+dirt[j][1];
+                    if(putRow>=0 && putColm>=0 && putRow<grid.length && putColm<grid[0].length){
+                        if(grid[putRow][putColm]=='1' && vist[putRow][putColm]==false){
+                            q.add(new Pair(putRow,putColm));
+                            vist[putRow][putColm]=true;
+                        }
+                    }
                 }
             }
         }
-    }
-    boolean isVald(char grid[][],int i,int j){
-        if(i<0 || j<0 || i>=grid.length || j>=grid[0].length || grid[i][j]=='0'){
-            return false;
-        }
-        return true;
+        
     }
 }
 class Pair{
-    int num1;
-    int num2;
+    int nRow;
+    int nColm;
     Pair(int n,int m){
-        this.num1=n;
-        this.num2=m;
+        this.nRow=n;
+        this.nColm=m;
     }
 }
