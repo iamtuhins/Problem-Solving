@@ -8,35 +8,36 @@ class Solution {
         for(int i=0;i<n;i++){
             mp.put(wordList.get(i),false);
         }
-        int sol=0;
-        mp.put(beginWord,true);
         Queue<String>q=new LinkedList<>();
         q.add(beginWord);
+        mp.put(beginWord,true);
+        int sol=0;
         while(!q.isEmpty()){
             int sz=q.size();
             for(int i=0;i<sz;i++){
-                String st=q.remove();
-                if(st.equals(endWord)){
+                String temp=q.remove();
+                if(temp.equals(endWord)){
                     return sol+1;
                 }
-                fn(st,mp,q);
+                fn(temp,q,mp);
             }
             sol++;
         }
         return 0;
         
     }
-    void fn(String val,Map<String,Boolean>mp,Queue<String>q){
-        int n=val.length();
-        for(int i=0;i<n;i++){
-            char arr[]=val.toCharArray();
-            for(int j=0;j<26;j++){
-                char temp=(char) ('a'+j);
-                arr[i]=temp;
-                String st=String.valueOf(arr);
-                if(mp.containsKey(st) && mp.get(st)==false){
-                    q.add(st);
-                    mp.put(st,true);
+    void fn(String word,Queue<String>q,Map<String,Boolean>mp){
+        int arr[]=new int[26];
+        int m=word.length();
+        for(int i=0;i<m;i++){
+            char nums[]=word.toCharArray();
+            for(int j=0;j<arr.length;j++){
+                char temp=(char)('a'+j);
+                nums[i]=temp;
+                String s1=String.valueOf(nums);
+                if(mp.containsKey(s1) && mp.get(s1)==false){
+                    q.add(s1);
+                    mp.put(s1,true);
                 }
             }
         }
