@@ -1,13 +1,13 @@
 class Solution {
     public int[] runningSum(int[] nums) {
         int n=nums.length;
+        int sol[]=new int[n];
         int m=0;
-        int temp[]=new int[nums.length];
-        for(int i=0;i<nums.length;i++){
-            m=m+nums[i];
-            temp[i]=m;
+        for(int i=0;i<n;i++){
+            m+=nums[i];
+            sol[i]=m;
         }
-        return temp;
+        return sol;
         
     }
 }
