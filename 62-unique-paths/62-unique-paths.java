@@ -1,28 +1,25 @@
 class Solution {
-    public int uniquePaths(int m, int n) { 
-        int num[][]=new int[m][n];
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
-                num[i][j]=-1;
-            }
-        }
-        int sol=fn(num,0,0,m,n);
+    public int uniquePaths(int m, int n) {
+        int map[][]=new int[m][n];
+        for(int i=0;i<m;i++)
+            for(int j=0;j<n;j++)
+                map[i][j]=-1;
+        int sol=fn(0,0,m-1,n-1,map);
         return sol;
+        
     }
-    int fn(int num[][],int n,int m,int n1,int m1){
-        if(n>=n1 || m>=m1){
+    int fn(int idN,int idM,int n,int m,int nums[][]){
+        if(idN>n || idM>m){
             return 0;
         }
-        if(num[n][m]>-1){
-            return num[n][m];
-        }
-        if(n==n1-1 && m==m1-1){
+        if(idN==n && idM==m){
             return 1;
         }
-        int nm1=fn(num,n+1,m,n1,m1);
-        int nm2=fn(num,n,m+1,n1,m1);
-        num[n][m]=nm1+nm2;
-        return nm1+nm2;
-        
+        if(nums[idN][idM]!=-1){
+            return nums[idN][idM];
+        }
+        int sol=fn(idN+1,idM,n,m,nums)+fn(idN,idM+1,n,m,nums);
+        nums[idN][idM]=sol;
+        return sol;
     }
 }
