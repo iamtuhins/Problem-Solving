@@ -1,4 +1,4 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 import java.util.*;
 import java.lang.*;
 import java.io.*;
@@ -28,7 +28,8 @@ class GFG {
                 System.out.println("0");
         }
     }
-}// } Driver Code Ends
+}
+// } Driver Code Ends
 
 
 class Solution {
@@ -36,49 +37,24 @@ class Solution {
     public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
         // Code here
         int vist[]=new int[V];
-        Map<Integer,Integer>map=new HashMap<>();
-        boolean sol=false;
         for(int i=0;i<V;i++){
             if(vist[i]==0){
-                map.put(i,-1);
-                Queue<Integer>q=new LinkedList<>();
-                q.add(i);
-                vist[i]=1;
-                sol=bfs(adj,vist,map,q);
-                if(sol==true){
-                    return true;
-                }
-            }
-        }
-        return sol;
-    }
-    boolean bfs(ArrayList<ArrayList<Integer>>adj,int vist[],Map<Integer,Integer>map,Queue<Integer>q){
-        while(!q.isEmpty()){
-            int node=q.remove();
-            for(int m:adj.get(node)){
-                if(vist[m]==1 && map.get(node)!=m){
-                    return true;
-                }else if(vist[m]==0){
-                    vist[m]=1;
-                    q.add(m);
-                    map.put(m,node);
-                }
+                boolean temp=isCycle(adj,vist,i,-1);
+                if(temp==true)
+                return true;
             }
         }
         return false;
     }
-    boolean dfs(ArrayList<ArrayList<Integer>>adj,int []vist,Map<Integer,Integer>map,int node){
-        vist[node]=1;
-        for(int n: adj.get(node)){
-            if(vist[n]==1 && map.get(node)!=n){
+    boolean isCycle(ArrayList<ArrayList<Integer>>adj,int vist[],int n,int pt){
+        vist[n]=1;
+        for(int m: adj.get(n)){
+            if(vist[m]==0){
+                boolean temp=isCycle(adj,vist,m,n);
+                if(temp==true)
                 return true;
-            }else if(vist[n]==0){
-                boolean temp=false;
-                map.put(n,node);
-                 temp=dfs(adj,vist,map,n);
-                 if(temp){
-                     return temp;
-                 }
+            }else if(vist[m]==1 && pt!=m){
+                return true;
             }
         }
         return false;
