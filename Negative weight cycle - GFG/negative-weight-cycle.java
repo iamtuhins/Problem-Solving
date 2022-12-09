@@ -47,20 +47,20 @@ class Solution
             for(int j=0;j<edges.length;j++){
                 int n1=edges[j][0];
                 int n2=edges[j][1];
-                int dst=edges[j][2];
-                if(wt[n1]!=Integer.MAX_VALUE && wt[n1]+dst<wt[n2]){
-                    wt[n2]=wt[n1]+dst;
+                int w1=edges[j][2];
+                if(wt[n1]!=Integer.MAX_VALUE && wt[n1]+w1<wt[n2]){
+                    wt[n2]=wt[n1]+w1;
                 }
             }
         }
-        for(int j=0;j<edges.length;j++){
-                int n1=edges[j][0];
-                int n2=edges[j][1];
-                int dst=edges[j][2];
-                if(wt[n1]!=Integer.MAX_VALUE && wt[n1]+dst<wt[n2]){
-                   return 1;
+        for(int i=0;i<edges.length;i++){
+            int n1=edges[i][0];
+            int n2=edges[i][1];
+            int w1=edges[i][2];
+            if(wt[n1]!=Integer.MAX_VALUE && wt[n1]+w1<wt[n2]){
+                    return 1;
                 }
-            }
-            return 0;
+        }
+        return 0;
     }
 }
