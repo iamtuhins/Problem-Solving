@@ -4,7 +4,6 @@ class Solution {
         dfs(rooms,vist,0);
         for(int i=0;i<vist.length;i++){
             if(vist[i]==0){
-                System.out.println(i);
                 return false;
             }
         }
