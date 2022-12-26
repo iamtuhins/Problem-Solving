@@ -38,28 +38,28 @@ class Solution
     public int isNegativeWeightCycle(int n, int[][] edges)
     {
         //code here
-        int wt[]=new int[n];
+        int sol[]=new int[n];
         for(int i=0;i<n;i++){
-            wt[i]=Integer.MAX_VALUE;
+            sol[i]=Integer.MAX_VALUE;
         }
-        wt[0]=0;
-        for(int i=0;i<n;i++){
+        sol[0]=0;
+        for(int i=0;i<n-1;i++){
             for(int j=0;j<edges.length;j++){
-                int n1=edges[j][0];
-                int n2=edges[j][1];
-                int w1=edges[j][2];
-                if(wt[n1]!=Integer.MAX_VALUE && wt[n1]+w1<wt[n2]){
-                    wt[n2]=wt[n1]+w1;
+                int u=edges[j][0];
+                int m=edges[j][1];
+                int wt=edges[j][2];
+                if(sol[u]!=Integer.MAX_VALUE && (sol[u]+wt)<sol[m]){
+                    sol[m]=sol[u]+wt;
                 }
             }
         }
         for(int i=0;i<edges.length;i++){
-            int n1=edges[i][0];
-            int n2=edges[i][1];
-            int w1=edges[i][2];
-            if(wt[n1]!=Integer.MAX_VALUE && wt[n1]+w1<wt[n2]){
-                    return 1;
-                }
+            int u=edges[i][0];
+            int m=edges[i][1];
+            int wt=edges[i][2];
+            if(sol[u]!=Integer.MAX_VALUE && (sol[u]+wt)<sol[m]){
+                return 1;
+            }
         }
         return 0;
     }
