@@ -7,11 +7,13 @@ class Solution {
         
     }
     int fn(int dp[],int cost[],int n){
-        dp[0]=cost[0];
-        dp[1]=cost[1];
+        int prv2=cost[0];
+        int prv1=cost[1];
         for(int i=2;i<n;i++){
-            dp[i]=cost[i]+Math.min(dp[i-1],dp[i-2]);
+            int cn=cost[i]+Math.min(prv2,prv1);
+            prv2=prv1;
+            prv1=cn;
         }
-        return Math.min(dp[n-1],dp[n-2]);
+        return Math.min(prv2,prv1);
     }
 }
