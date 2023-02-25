@@ -43,7 +43,7 @@ class Solution
     static int longestSubsequence(int size, int a[])
     {
         // code here
-        int dp[][]=new int[size][size+1];
+        int dp[][]=new int[size+1][size+1];
         for(int i=0;i<size;i++){
             Arrays.fill(dp[i],-1);
         }
@@ -51,20 +51,19 @@ class Solution
         return n;
     }
     static int fn(int arr[],int prevId,int currId,int [][]dp){
-        if(currId==arr.length){
+        if(currId>=arr.length){
             return 0;
         }
         if(dp[currId][prevId+1]!=-1){
             return dp[currId][prevId+1];
         }
-        int take=0;
+        int adding=0;
         if(prevId==-1 || arr[currId]>arr[prevId]){
-            take=1+fn(arr,currId,currId+1,dp);
+            adding=1+fn(arr,currId,currId+1,dp);
         }
-        int notTake=0;
-        notTake=0+fn(arr,prevId,currId+1,dp);
-        int sol=Math.max(take,notTake);
-        dp[currId][prevId+1]=sol;
-        return sol;
+        int notAdding=0+fn(arr,prevId,currId+1,dp);
+        int temp=Math.max(adding,notAdding);
+        dp[currId][prevId+1]=temp;
+        return temp;
     }
 } 
