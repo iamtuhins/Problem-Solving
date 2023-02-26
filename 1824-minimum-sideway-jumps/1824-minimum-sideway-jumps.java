@@ -1,30 +1,30 @@
 class Solution {
     public int minSideJumps(int[] obstacles) {
-        int dp[][]=new int[3+1][obstacles.length];
-        for(int i=0;i<=3;i++){
+        int dp[][]=new int[obstacles.length+1][4];
+        for(int i=0;i<obstacles.length;i++){
             Arrays.fill(dp[i],-1);
         }
-        int n=fn(obstacles,2,0,dp);
-        return n;
+        int m=fn(obstacles,0,2,dp);
+        return m;
         
     }
-    int fn(int arr[],int lane,int pos,int [][]dp){
-        if(pos==arr.length-1){
+    int fn(int arr[],int id,int pnt,int [][]dp){
+        if(id>=arr.length-1){
             return 0;
         }
-        if(dp[lane][pos]!=-1){
-            return dp[lane][pos];
+        if(arr[id+1]!=pnt){
+         return fn(arr,id+1,pnt,dp);   
         }
-        if(arr[pos+1]!=lane){
-            return fn(arr,lane,pos+1,dp);
+        if(dp[id][pnt]!=-1){
+            return dp[id][pnt];
         }
-        int min=Integer.MAX_VALUE;
+        int temp=Integer.MAX_VALUE;
         for(int i=1;i<=3;i++){
-            if(i!=lane && arr[pos]!=i){
-                min=Math.min(min,1+fn(arr,i,pos,dp));
+            if(pnt!=i && arr[id]!=i){
+                temp=Math.min(temp,1+fn(arr,id,i,dp));
             }
         }
-        dp[lane][pos]=min;
-        return min;
+        dp[id][pnt]=temp;
+        return temp;
     }
 }
