@@ -2,21 +2,25 @@ class Solution {
     public int climbStairs(int n) {
         int dp[]=new int[n+1];
         Arrays.fill(dp,-1);
-        int sol=fn(new int[1],n,0,dp);
-        return sol;
+        int m=fn(n,dp);
+        return m;
         
     }
-    int fn(int []arr,int n,int m,int []dp){
-        if(m>=n){
-            if(m==n){
-                 return 1;
-            }
+    int fn(int n,int []dp){
+        if(0>=n){
             return 0;
         }
-        if(dp[m]>-1){
-            return dp[m];
+        if(n==1){
+            return 1;
         }
-        dp[m]= fn(arr,n,m+1,dp)+fn(arr,n,m+2,dp);
-        return dp[m];
+        if(n==2){
+            return 2;
+        }
+        if(dp[n]!=-1){
+            return dp[n];
+        }
+        int temp=fn(n-1,dp)+fn(n-2,dp);
+        dp[n]=temp;
+        return temp;
     }
 }
