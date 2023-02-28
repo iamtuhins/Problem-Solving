@@ -4,13 +4,11 @@ class Solution {
         int n=word.length();
         long nums=0;
         for(int i=0;i<n;i++){
-            long val=Character.getNumericValue(word.charAt(i));
+            long val=(word.charAt(i)-'0');
             long temp=fn(val,nums);
             nums=temp;
             if(temp%m==0){
                 sol[i]=1;
-            }else{
-                sol[i]=0;
             }
             nums%=m;
             
