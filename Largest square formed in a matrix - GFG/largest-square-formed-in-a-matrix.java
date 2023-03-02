@@ -32,30 +32,32 @@ class Solution{
     static int maxSquare(int n, int m, int mat[][]){
         // code here
         int mz[]=new int[1];
-        int dp[][]=new int[n][m];
-        for(int i=0;i<n;i++){
+        int dp[][]=new int[n+1][m+1];
+        for(int i=0;i<=n;i++){
             Arrays.fill(dp[i],-1);
         }
-        fn(0,0,mat,mz,dp);
+        int j=fn(mat,0,0,mz,dp);
         return mz[0];
     }
-    static int fn(int n,int m,int [][]arr,int mz[],int dp[][]){
+    static int fn(int arr[][],int n, int m,int []mz,int [][]dp){
         if(n>=arr.length || m>=arr[0].length){
             return 0;
         }
         if(dp[n][m]!=-1){
             return dp[n][m];
         }
-        int lft=fn(n,m+1,arr,mz,dp);
-        int conn=fn(n+1,m+1,arr,mz,dp);
-        int dwn=fn(n+1,m,arr,mz,dp);
+        int lf=fn(arr,n,m+1,mz,dp);
+        int conn=fn(arr,n+1,m+1,mz,dp);
+        int ryt=fn(arr,n+1,m,mz,dp);
+        int temp=0;
         if(arr[n][m]==1){
-            dp[n][m]=1+Math.min(lft,Math.min(conn,dwn));
-            mz[0]=Math.max(dp[n][m],mz[0]);
-            return dp[n][m];
+            temp=1+Math.min(lf,Math.min(conn,ryt));
+            dp[n][m]=temp;
+            mz[0]=Math.max(mz[0],temp);
+            return temp;
         }else{
             dp[n][m]=0;
-            return dp[n][m];
+            return 0;
         }
     }
 }
