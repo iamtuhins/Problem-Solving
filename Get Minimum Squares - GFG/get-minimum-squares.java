@@ -30,23 +30,26 @@ class Solution
     public int MinSquares(int n)
     {
         // Code here
-        int map[]=new int[n+1];
-        Arrays.fill(map,-1);
-        int sol=fn(n,map);
-        return sol;
+        int dp[]=new int[n+1];
+        Arrays.fill(dp,-1);
+        int m=fn(n,dp);
+        return m;
     }
-    int fn(int n,int []map){
-        if(0>=n){
+    int fn(int n,int []dp){
+        if(n==0){
             return 0;
         }
-        if(map[n]!=-1){
-            return map[n];
+        if(n<0){
+            return (int)1e9;
         }
-        int temp=n;
+        if(dp[n]!=-1){
+            return dp[n];
+        }
+        int temp=Integer.MAX_VALUE;
         for(int i=1;i*i<=n;i++){
-            temp=Math.min(temp,1+fn(n-(i*i),map));
+            temp=Math.min(temp,1+fn(n-(i*i),dp));
         }
-        map[n]=temp;
+        dp[n]=temp;
         return temp;
     }
 }
