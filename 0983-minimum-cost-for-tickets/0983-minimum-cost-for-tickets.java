@@ -3,24 +3,26 @@ class Solution {
         int n=days.length;
         int dp[]=new int[n+1];
         Arrays.fill(dp,-1);
-        int m=fn(days,costs,n,0,dp);
+        int m=fn(days,costs,0,dp);
         return m;
+        
+        
     }
-    int fn(int []days,int cost[],int n,int id,int[] dp){
-        if(id>=n){
+    int fn(int days[],int cost[],int idN,int []dp){
+        if(idN>=days.length){
             return 0;
         }
-        int i=0;
-        if(dp[id]!=-1){
-            return dp[id];
+        if(dp[idN]!=-1){
+            return dp[idN];
         }
-        int oneDay=cost[0]+fn(days,cost,n,id+1,dp);
-        for(i=id;i<n && days[i]<days[id]+7;i++);
-        int sevenDays=cost[1]+fn(days,cost,n,i,dp);
-        for(i=id;i<n && days[i]<days[id]+30;i++);
-        int ThirtyDays=cost[2]+fn(days,cost,n,i,dp);
+        int oneDay=cost[0]+fn(days,cost,idN+1,dp);
+        int i=0;
+        for(i=idN;i<days.length && days[i]<days[idN]+7;i++);
+        int sevenDays=cost[1]+fn(days,cost,i,dp);
+        for(i=idN;i<days.length && days[i]<days[idN]+30;i++);
+        int ThirtyDays=cost[2]+fn(days,cost,i,dp);
         int temp=Math.min(oneDay,Math.min(sevenDays,ThirtyDays));
-        dp[id]=temp;
+        dp[idN]=temp;
         return temp;
     }
 }
