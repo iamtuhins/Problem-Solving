@@ -52,30 +52,29 @@ class Solution
     static int knapSack(int W, int wt[], int val[], int n) 
     { 
          // your code here 
-         int map[][]=new int[W+1][n+1];
-        for(int i=0;i<=W;i++){
-            Arrays.fill(map[i],-1);
-        }
-         int m=fn(W,wt,val,n,0,map);
+         int dp[][]=new int[n+1][W+1];
+         for(int i=0;i<n+1;i++){
+             Arrays.fill(dp[i],-1);
+         }
+         int m=fn(W,0,val,wt,dp);
          return m;
     } 
-    static int fn(int w,int []wt,int val[],int n,int j,int [][]map){
-        if(0>w){
+    static int fn(int W,int id,int []val,int []wt,int [][]dp){
+        if(0>=W || id>=wt.length){
             return 0;
         }
-        if(map[w][j]!=-1){
-            return map[w][j];
+        if(dp[id][W]!=-1){
+            return dp[id][W];
         }
-        int mz=0;
-        for(int i=j;i<n;i++){
-            int temp=0;
-            if(w>=wt[i]){
-                temp=val[i]+fn(w-wt[i],wt,val,n,i+1,map);
-            }
-            mz=Math.max(mz,temp);
+        int adding=0;
+        if(wt[id]<=W){
+            adding=val[id]+fn(W-wt[id],id+1,val,wt,dp);
         }
-        map[w][j]=mz;
-        return mz;
+        int notAdding=0+fn(W,id+1,val,wt,dp);
+        int temp=Math.max(adding,notAdding);
+        dp[id][W]=temp;
+        return temp;
+        
     }
 }
 
