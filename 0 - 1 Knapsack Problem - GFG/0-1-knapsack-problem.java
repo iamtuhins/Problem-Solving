@@ -52,29 +52,28 @@ class Solution
     static int knapSack(int W, int wt[], int val[], int n) 
     { 
          // your code here 
-         int dp[][]=new int[n+1][W+1];
-         for(int i=0;i<n+1;i++){
+         int dp[][]=new int[W+1][n+1];
+         for(int i=0;i<dp.length;i++){
              Arrays.fill(dp[i],-1);
          }
-         int m=fn(W,0,val,wt,dp);
+         int m=fn(wt,W,val,0,dp);
          return m;
     } 
-    static int fn(int W,int id,int []val,int []wt,int [][]dp){
-        if(0>=W || id>=wt.length){
+    static int fn(int wt[],int W,int []val,int id,int [][]dp){
+        if(id>=val.length){
             return 0;
         }
-        if(dp[id][W]!=-1){
-            return dp[id][W];
+        if(dp[W][id]!=-1){
+            return dp[W][id];
         }
         int adding=0;
-        if(wt[id]<=W){
-            adding=val[id]+fn(W-wt[id],id+1,val,wt,dp);
+        if(W>=wt[id]){
+            adding=val[id]+fn(wt,W-wt[id],val,id+1,dp);
         }
-        int notAdding=0+fn(W,id+1,val,wt,dp);
+        int notAdding=0+fn(wt,W,val,id+1,dp);
         int temp=Math.max(adding,notAdding);
-        dp[id][W]=temp;
+        dp[W][id]=temp;
         return temp;
-        
     }
 }
 
