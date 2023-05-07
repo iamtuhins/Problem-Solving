@@ -1,28 +1,31 @@
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        int n=nums.length;
-        int dp[][]=new int[n+1][n+1];
-        for(int i=0;i<n;i++){
-            Arrays.fill(dp[i],-1);
+        int prevId=-1;
+        int currId=0;
+        int m=nums.length;
+        int mp[][]=new int[m+1][m+1];
+        for(int i=0;i<m;i++){
+            Arrays.fill(mp[i],-1);
         }
-        int m=fn(nums,-1,0,dp);
-        return m;
+        int n=fn(nums,m,prevId,currId,mp);
+        return n;
         
     }
-    int fn(int arr[],int prevId,int currId,int [][]dp){
-        if(currId>=arr.length){
+    int fn(int arr[],int n,int prevId,int currId,int [][]mp){
+        if(currId>=n){
             return 0;
         }
-        if(dp[currId][prevId+1]!=-1){
-            return dp[currId][prevId+1];
+        if(mp[prevId+1][currId]!=-1){
+            return mp[prevId+1][currId];
         }
         int adding=0;
+        int notAdding=0;
         if(prevId==-1 || arr[currId]>arr[prevId]){
-            adding=1+fn(arr,currId,currId+1,dp);
+            adding=1+fn(arr,n,currId,currId+1,mp);
         }
-        int notAdding=fn(arr,prevId,currId+1,dp);
+        notAdding=0+fn(arr,n,prevId,currId+1,mp);
         int temp=Math.max(adding,notAdding);
-        dp[currId][prevId+1]=temp;
+        mp[prevId+1][currId]=temp;
         return temp;
     }
 }
