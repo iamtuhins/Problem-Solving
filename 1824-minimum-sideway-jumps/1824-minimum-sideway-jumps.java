@@ -1,30 +1,33 @@
 class Solution {
     public int minSideJumps(int[] obstacles) {
-        int dp[][]=new int[obstacles.length+1][4];
-        for(int i=0;i<obstacles.length;i++){
+        int m=obstacles.length;
+        int row=2;
+        int colm=0;
+        int dp[][]=new int[4][m+1];
+        for(int i=0;i<dp.length;i++){
             Arrays.fill(dp[i],-1);
         }
-        int m=fn(obstacles,0,2,dp);
-        return m;
+        int n= fn(obstacles,colm,row,dp);
+        return n;
         
     }
-    int fn(int arr[],int id,int pnt,int [][]dp){
-        if(id>=arr.length-1){
+    int fn(int arr[],int colm,int row,int [][]dp){
+        if(colm>=arr.length-1){
             return 0;
         }
-        if(arr[id+1]!=pnt){
-         return fn(arr,id+1,pnt,dp);   
+        if(dp[row][colm]!=-1){
+            return dp[row][colm];
         }
-        if(dp[id][pnt]!=-1){
-            return dp[id][pnt];
+        if(arr[colm+1]!=row){
+            return dp[row][colm]= fn(arr,colm+1,row,dp);
         }
         int temp=Integer.MAX_VALUE;
         for(int i=1;i<=3;i++){
-            if(pnt!=i && arr[id]!=i){
-                temp=Math.min(temp,1+fn(arr,id,i,dp));
+            if(arr[colm]!=i && row!=i){
+                temp=Math.min(temp,1+fn(arr,colm,i,dp));
             }
         }
-        dp[id][pnt]=temp;
+        dp[row][colm]=temp;
         return temp;
     }
 }
