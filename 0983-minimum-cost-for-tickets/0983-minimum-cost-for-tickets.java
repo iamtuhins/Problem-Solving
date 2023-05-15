@@ -1,27 +1,30 @@
 class Solution {
     public int mincostTickets(int[] days, int[] costs) {
-        int n=days.length;
-        int dp[]=new int[n+1];
-        Arrays.fill(dp,-1);
-        int m=fn(days,costs,0,dp);
-        return m;
+        int m=days.length;
+        int dp[]=new int[m+1];
+        for(int i=0;i<dp.length;i++){
+            Arrays.fill(dp,-1);
+        }
+        int n=fn(days,costs,0,dp);
+        return n;
         
     }
-    int fn(int days[],int cost[],int idN,int []dp){
-        if(idN>=days.length){
+    int fn(int []days,int []cost,int idm,int []dp){
+        if(idm>=days.length){
             return 0;
         }
-        if(dp[idN]!=-1){
-            return dp[idN];
+        if(dp[idm]!=-1){
+            return dp[idm];
         }
-        int oneDayPass=cost[0]+fn(days,cost,idN+1,dp);
-        int i=0;
-        for(i=idN;i<days.length && days[i]<days[idN]+7;i++);
-        int sevenDaysPass=cost[1]+fn(days,cost,i,dp);
-        for(i=idN;i<days.length && days[i]<days[idN]+30;i++);
-        int thirtyDaysPass=cost[2]+fn(days,cost,i,dp);
-        int temp=Math.min(oneDayPass,Math.min(sevenDaysPass,thirtyDaysPass));
-        dp[idN]=temp;
+        int val=0;
+        int oneDay=cost[0]+fn(days,cost,idm+1,dp);
+        int id=0;
+        for(id=idm;id<days.length && days[id]<days[idm]+7;id++);
+        int sevenDays=cost[1]+fn(days,cost,id,dp);
+        for(id=idm;id<days.length && days[id]<days[idm]+30;id++);
+        int Months=cost[2]+fn(days,cost,id,dp);
+        int temp=Math.min(oneDay,Math.min(sevenDays,Months));
+        dp[idm]=temp;
         return temp;
     }
 }
