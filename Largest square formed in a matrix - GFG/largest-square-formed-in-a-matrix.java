@@ -31,33 +31,33 @@ class GFG{
 class Solution{
     static int maxSquare(int n, int m, int mat[][]){
         // code here
-        int mz[]=new int[1];
+        int k=0;
+        int []mz=new int[1];
         int dp[][]=new int[n+1][m+1];
-        for(int i=0;i<=n;i++){
+        for(int i=0;i<dp.length;i++){
             Arrays.fill(dp[i],-1);
         }
-        int j=fn(mat,0,0,mz,dp);
+        fn(0,0,mat,mz,dp);
         return mz[0];
     }
-    static int fn(int arr[][],int n, int m,int []mz,int [][]dp){
-        if(n>=arr.length || m>=arr[0].length){
+    static int fn(int j, int i,int [][]mat,int []mz,int [][]dp){
+        if(i>=mat.length || j>=mat[0].length){
             return 0;
         }
-        if(dp[n][m]!=-1){
-            return dp[n][m];
+        if(dp[i][j]!=-1){
+            return dp[i][j];
         }
-        int lf=fn(arr,n,m+1,mz,dp);
-        int conn=fn(arr,n+1,m+1,mz,dp);
-        int ryt=fn(arr,n+1,m,mz,dp);
+        int rt=fn(j+1,i,mat,mz,dp);
+        int conn=fn(j+1,i+1,mat,mz,dp);
+        int dwn=fn(j,i+1,mat,mz,dp);
         int temp=0;
-        if(arr[n][m]==1){
-            temp=1+Math.min(lf,Math.min(conn,ryt));
-            dp[n][m]=temp;
+        if(mat[i][j]==1){
+            temp=1+Math.min(rt,Math.min(conn,dwn));
+            dp[i][j]=temp;
             mz[0]=Math.max(mz[0],temp);
-            return temp;
         }else{
-            dp[n][m]=0;
-            return 0;
+            dp[i][j]=0;
         }
+        return temp; 
     }
 }
