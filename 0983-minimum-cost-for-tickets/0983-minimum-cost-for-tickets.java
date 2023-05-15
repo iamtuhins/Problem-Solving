@@ -2,9 +2,7 @@ class Solution {
     public int mincostTickets(int[] days, int[] costs) {
         int m=days.length;
         int dp[]=new int[m+1];
-        for(int i=0;i<dp.length;i++){
-            Arrays.fill(dp,-1);
-        }
+        Arrays.fill(dp,-1);
         int n=fn(days,costs,0,dp);
         return n;
         
