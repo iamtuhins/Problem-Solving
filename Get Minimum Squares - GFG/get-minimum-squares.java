@@ -35,18 +35,19 @@ class Solution
         int m=fn(n,dp);
         return m;
     }
-    int fn(int num,int[]dp){
-        if(0>=num){
+    int fn(int n,int []dp){
+        if(n<=0){
             return 0;
         }
-        if(dp[num]!=-1){
-            return dp[num];
+        if(dp[n]!=-1){
+            return dp[n];
         }
-        int temp=num;
-        for(int i=1;i*i<=num;i++){
-            temp=Math.min(temp,1+fn(num-(i*i),dp));
+        int temp=n;
+        for(int i=1;i*i<=n;i++){
+            int val=n-(i*i);
+            temp=Math.min(temp,1+fn(val,dp));
         }
-        dp[num]=temp;
+        dp[n]=temp;
         return temp;
     }
 }
