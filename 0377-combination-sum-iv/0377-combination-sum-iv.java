@@ -1,28 +1,26 @@
 class Solution {
     public int combinationSum4(int[] nums, int target) {
-        int map[]=new int[target+1];
-        Arrays.fill(map,-1);
-        int m=fn(target,nums,map);
-        return m;
+        int dp[]=new int[target+1];
+        Arrays.fill(dp,-1);
+        int n=fn(nums,target,dp);
+        return n;
         
     }
-    int fn(int target,int arr[],int []map){
-        if(target==0){
+    int fn(int arr[],int vals,int dp[]){
+        if(vals==0){
             return 1;
         }
-        if(target<0){
+        if(0>vals){
             return 0;
         }
-        if(map[target]!=-1){
-            return map[target];
+        if(dp[vals]!=-1){
+            return dp[vals];
         }
         int temp=0;
         for(int i=0;i<arr.length;i++){
-            target-=arr[i];
-            temp=temp+fn(target,arr,map);
-            target+=arr[i];
+            temp+=fn(arr,vals-arr[i],dp);
         }
-        map[target]=temp;
+        dp[vals]=temp;
         return temp;
     }
 }
