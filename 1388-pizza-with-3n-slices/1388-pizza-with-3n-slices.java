@@ -1,31 +1,32 @@
 class Solution {
     public int maxSizeSlices(int[] slices) {
-        int k=slices.length;
-        int m=k/3;
-        int dp[][]=new int[k+1][m+1];
-        for(int i=0;i<dp.length;i++){
+        int m=slices.length;
+        int vl=m/3;
+        int dp[][]=new int[m+1][vl+1];
+        for(int i=0;i<m;i++){
             Arrays.fill(dp[i],-1);
         }
-        int case1= fn(slices,0,m,k-1,dp);
-        for(int i=0;i<dp.length;i++){
+        
+        int f1=fn(slices,0,m-1,vl,dp);
+        for(int i=0;i<m;i++){
             Arrays.fill(dp[i],-1);
         }
-        int case2= fn(slices,1,m,k,dp);
-        int n=Math.max(case1,case2);
+        int f2=fn(slices,1,m,vl,dp);
+        int n=Math.max(f1,f2);
         return n;
         
     }
-    int fn(int []arr,int id,int m,int endId,int [][]dp){
-        if(id>=endId || m==0){
+    int fn(int arr[],int id, int eId,int nm,int [][]dp){
+        if(id>=eId || 0>=nm){
             return 0;
         }
-        if(dp[id][m]!=-1){
-            return dp[id][m];
+        if(dp[id][nm]!=-1){
+            return dp[id][nm];
         }
-        int take=arr[id]+fn(arr,id+2,m-1,endId,dp);
-        int notTake=0+fn(arr,id+1,m,endId,dp);
-        int temp=Math.max(take,notTake);
-        dp[id][m]=temp;
+        int adding=arr[id]+fn(arr,id+2,eId,nm-1,dp);
+        int notAdding=0+fn(arr,id+1,eId,nm,dp);
+        int temp=Math.max(adding,notAdding);
+        dp[id][nm]=temp;
         return temp;
     }
 }
