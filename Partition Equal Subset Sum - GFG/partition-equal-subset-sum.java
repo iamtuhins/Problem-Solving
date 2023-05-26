@@ -42,11 +42,11 @@ class Solution{
         if(m%2!=0){
             return 0;
         }
-        int dp[][]=new int[N+1][m+1];
+        int hlff=m/2;
+        int dp[][]=new int[N+1][hlff+1];
         for(int i=0;i<dp.length;i++){
             Arrays.fill(dp[i],-1);
         }
-        int hlff=m/2;
         int n=fn(arr,hlff,0,0,dp);
         return n;
     }
