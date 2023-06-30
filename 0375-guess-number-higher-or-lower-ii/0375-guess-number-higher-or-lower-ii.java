@@ -12,19 +12,18 @@ class Solution {
         
         
     }
-    int fn(int start, int end,int [][]map){
+    int fn(int start, int end,int map[][]){
         if(start>=end){
             return 0;
         }
         if(map[start][end]!=-1){
             return map[start][end];
         }
-        int m=Integer.MAX_VALUE;
+        int n=Integer.MAX_VALUE;
         for(int i=start;i<=end;i++){
-            m=Math.min(m,i+Math.max(fn(start,i-1,map),fn(i+1,end,map)));
+            n=Math.min(n,i+Math.max(fn(start,i-1,map),fn(i+1,end,map)));
         }
-        map[start][end]=m;
-        return m;
+        map[start][end]=n;
+        return n;
     }
-    
 }
