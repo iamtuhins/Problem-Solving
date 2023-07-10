@@ -12,24 +12,24 @@ class Solution {
         
         
     }
-    int fn(int arr[], int id,int buy,int limit,int [][][]dp){
-        if(id>=arr.length || limit==0){
+    int fn(int arr[],int id,int buy, int buySell,int [][][]dp){
+        if(id>=arr.length || buySell==0){
             return 0;
         }
-        if(dp[id][buy][limit]!=-1){
-            return dp[id][buy][limit];
+        if(dp[id][buy][buySell]!=-1){
+            return dp[id][buy][buySell];
         }
         int n=0;
         if(buy==1){
-            int temp1=-arr[id]+fn(arr,id+1,0,limit,dp);
-            int temp2=0+fn(arr,id+1,1,limit,dp);
+            int temp1=-arr[id]+fn(arr,id+1,0,buySell,dp);
+            int temp2=0+fn(arr,id+1,buy,buySell,dp);
             n=Math.max(temp1,temp2);
         }else{
-            int temp1=arr[id]+fn(arr,id+1,1,limit-1,dp);
-            int temp2=0+fn(arr,id+1,0,limit,dp);
+            int temp1=arr[id]+fn(arr,id+1,1,buySell-1,dp);
+            int temp2=0+fn(arr,id+1,buy,buySell,dp);
             n=Math.max(temp1,temp2);
         }
-        dp[id][buy][limit]=n;
+        dp[id][buy][buySell]=n;
         return n;
     }
 }
