@@ -1,4 +1,4 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 //Initial Template for Java
 
 import java.math.*;
@@ -56,7 +56,8 @@ class Driverclass
 		}
 		out.flush();
 	}
-}// } Driver Code Ends
+}
+// } Driver Code Ends
 
 
 class Solution
@@ -65,16 +66,19 @@ class Solution
     long minCost(long arr[], int n) 
     {
         // your code here
+        if(n<2){
+            return 0;
+        }
         PriorityQueue<Long>pq=new PriorityQueue<>();
         for(int i=0;i<n;i++){
             pq.add(arr[i]);
         }
         long sol=0;
-        while(pq.size()>1){
-            long n1=pq.poll();
-            long m1=pq.poll();
-            sol=sol+n1+m1;
-            pq.add(n1+m1);
+        while(pq.size()!=1){
+            long num1=pq.poll();
+            long num2=pq.poll();
+            pq.add(num1+num2);
+            sol+=num1+num2;
         }
         return sol;
     }
