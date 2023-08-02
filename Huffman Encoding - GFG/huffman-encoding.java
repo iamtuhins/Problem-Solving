@@ -40,27 +40,26 @@ class Solution {
     public ArrayList<String> huffmanCodes(String S, int f[], int N)
     {
         // Code here
-        Cm Comparators=new Cm();
-        PriorityQueue<Node>pq=new PriorityQueue<>(Comparators);
+        CustomComparators cm=new CustomComparators();
+        PriorityQueue<Node>pq=new PriorityQueue<>(cm);
         for(int i=0;i<f.length;i++){
-            Node nd=new Node(f[i]);
-            pq.add(nd);
+            pq.add(new Node(f[i]));
         }
         while(pq.size()!=1){
             Node num1=pq.poll();
             Node num2=pq.poll();
-            Node NodeNew=new Node(num1.data+num2.data);
-            NodeNew.left=num1;
-            NodeNew.right=num2;
-            pq.add(NodeNew);
+            Node nodeNew=new Node(num1.data+num2.data);
+            nodeNew.left=num1;
+            nodeNew.right=num2;
+            pq.add(nodeNew);
         }
-        ArrayList<String> sol=new ArrayList<>();
-        Node fst=pq.poll();
-        traverse(fst,"",sol);
-        return sol;
-        
+        Node val=pq.poll();
+        ArrayList<String>lst=new ArrayList<>();
+        String temp="";
+        traverse(val,temp,lst);
+        return lst;
     }
-     void traverse(Node nd,String temp, ArrayList<String>lst){
+    void traverse(Node nd,String temp,ArrayList<String>lst){
         if(nd.left==null && nd.right==null){
             lst.add(temp);
             return;
@@ -79,12 +78,12 @@ class Node{
         right=null;
     }
 }
-class Cm implements Comparator<Node>{
+class CustomComparators implements Comparator<Node>{
     public int compare(Node n1,Node n2){
-       if(n1.data==n2.data){
-           return 1;
-       }else{
-           return n1.data-n2.data;
-       }
+        if(n1.data==n2.data){
+            return 1;
+        }else{
+            return n1.data-n2.data;
+        }
     }
 }
