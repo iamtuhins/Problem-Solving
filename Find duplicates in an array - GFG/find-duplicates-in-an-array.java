@@ -28,28 +28,29 @@ class Solution {
         int idN=0;
         while(idN<n){
             int temp=arr[idN];
-            if(temp==arr[temp]){
+            if(arr[temp]==temp){
                 idN++;
             }else{
                 arr[idN]=arr[temp];
                 arr[temp]=temp;
             }
         }
-        ArrayList<Integer>duplicates=new ArrayList<>();
+        
+        ArrayList<Integer>sol=new ArrayList<>();
         for(int i=0;i<n;i++){
             int temp=arr[i];
-            if(temp!=-1 && i!=arr[i]){
-                if(arr[temp]!=-1){
-                duplicates.add(arr[i]);
-                arr[arr[i]]=-1;
-                }
+            if(temp!=-1 && temp!=i){
+               if(arr[temp]!=-1){
+                sol.add(temp);
+                arr[temp]=-1;
+               }
             }
         }
-        int m=duplicates.size();
+        Collections.sort(sol);
+        int m=sol.size();
         if(m==0){
-            duplicates.add(-1);
+            sol.add(-1);
         }
-        Collections.sort(duplicates);
-        return duplicates;
+        return sol;
     }
 }
