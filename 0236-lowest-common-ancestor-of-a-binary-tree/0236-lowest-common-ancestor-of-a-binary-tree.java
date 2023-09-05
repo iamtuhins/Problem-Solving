@@ -9,26 +9,22 @@
  */
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        TreeNode n=fn(root,p,q);
-        return n;
+        TreeNode m=fn(root,p,q);
+        return m;
         
     }
-    TreeNode fn(TreeNode root,TreeNode p,TreeNode q){
-        if(root==null){
-            return null;
+    TreeNode fn(TreeNode nd, TreeNode p, TreeNode q){
+        if(nd==null || nd==p || nd==q){
+            return nd;
         }
-        if(root==p || root==q){
-            return root;
-        }
-        TreeNode left=fn(root.left,p,q);
-        TreeNode ryt=fn(root.right,p,q);
+        TreeNode left=fn(nd.left,p,q);
+        TreeNode rgt=fn(nd.right,p,q);
         
         if(left==null){
-            return ryt;
-        }else if(ryt==null){
+            return rgt;
+        }else if(rgt==null){
             return left;
         }
-        return root;
+        return nd;
     }
-    
 }
